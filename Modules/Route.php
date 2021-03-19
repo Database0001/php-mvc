@@ -19,7 +19,7 @@ class Route
                 $class = new $callback();
 
                 foreach ($methods as $method) {
-                    if ($method[0] == ($_REQUEST['_method'] ?? $_SERVER['REQUEST_METHOD'])) {
+                    if (in_array(($_REQUEST['_method'] ?? $_SERVER['REQUEST_METHOD']), $method[0])) {
                         $return = eval('return $class->' . $method[1] . '();');
                     }
                 }
@@ -34,5 +34,12 @@ class Route
                 self::$called = 1;
             }
         }
+    }
+
+    public static function resource($url, $class)
+    {
+        return self::request($url, $class, [
+            
+        ]);
     }
 }
