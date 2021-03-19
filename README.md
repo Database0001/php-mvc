@@ -1,2 +1,2 @@
 # php-mvc
-php mvc
+php mvc yapısı
