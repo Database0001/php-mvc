@@ -9,7 +9,7 @@ function blade($fileContent = null, $data = [])
             $data_val = json_encode($data_val, JSON_UNESCAPED_UNICODE);
         }
 
-        $fileContent = str_replace("{{ $$data_key }}", $data_val, $fileContent);
+        $fileContent = str_replace(["{{ $$data_key }}", "{!! $$data_key !!}"], [htmlspecialchars($data_val), $data_val], $fileContent);
     }
 
     return $fileContent;
