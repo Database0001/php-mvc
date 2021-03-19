@@ -1,2 +1,2 @@
 # php-mvc
-php mvc yapısı
+Amatör php mvc yapısı
