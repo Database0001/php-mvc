@@ -39,7 +39,8 @@ class Route
     public static function resource($url, $class)
     {
         return self::request($url, $class, [
-            
+            [['GET'], 'index'],
+            [['POST'], 'store']
         ]);
     }
 }
