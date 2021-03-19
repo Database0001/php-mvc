@@ -24,10 +24,11 @@ class Route
                     }
                 }
 
-                echo $return;
+                echo $return ?? null;
             }
-
-            self::$called = 1;
+            if (@$return) {
+                self::$called = 1;
+            }
         }
     }
 }

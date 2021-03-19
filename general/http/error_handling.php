@@ -2,6 +2,8 @@
 
 use Modules\Route\Route;
 
-if (!Route::$called) {
+$called = Route::$called;
+
+if (!$called) {
     abort(404);
 }
