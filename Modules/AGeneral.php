@@ -8,8 +8,10 @@ function base_path($url = null)
 function abort($code = null)
 {
     $response = http_response_code($code);
-    if ($code)
+    if ($code) {
+        echo view('errors.' . $code);
         exit;
+    }
 
     return $response;
 }

@@ -24,7 +24,11 @@ class Route
                     }
                 }
 
-                echo $return ?? null;
+                if ($return) {
+                    echo $return;
+                } else {
+                    abort(404);
+                }
             }
             if (@$return) {
                 self::$called = 1;

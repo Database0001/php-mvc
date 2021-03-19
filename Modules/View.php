@@ -13,6 +13,6 @@ function view($view, $data = [])
     if (file_exists($file)) {
         return blade(file_get_contents($file), $data);
     } else {
-        abort(404);
+        
     }
 }
