@@ -7,3 +7,7 @@ Route::request("/home", HomeController::class, [
     ['GET', 'get'],
     ['POST', 'post']
 ]);
+
+if (!Route::$called) {
+    abort(404);
+}

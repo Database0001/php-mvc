@@ -2,10 +2,10 @@
 
 namespace Modules\Route;
 
-use \Exception;
-
 class Route
 {
+
+    static $called = 0;
 
     public static function request($url, $callback, $methods = [])
     {
@@ -25,8 +25,9 @@ class Route
                 }
 
                 echo $return;
-
             }
+
+            self::$called = 1;
         }
     }
 }

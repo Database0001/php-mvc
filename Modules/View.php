@@ -10,6 +10,9 @@ function view($view, $data = [])
     }
 
     $file = $path . ".blade.php";
-
-    echo blade(file_get_contents($file), $data);
+    if (file_exists($file)) {
+        return blade(file_get_contents($file), $data);
+    } else {
+        abort(404);
+    }
 }
