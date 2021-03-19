@@ -6,11 +6,7 @@ class HomeController
 {
     public function get()
     {
-?>
-        <form method="POST">
-            <button type="submit">Post method</button>
-        </form>
-<?php
+        return view('modules.test.index', ['selam' => ['SA', 'as']]);
     }
 
     public function post()
