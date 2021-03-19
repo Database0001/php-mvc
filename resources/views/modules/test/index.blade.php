@@ -1,1 +1,1 @@
-test {{ $selam }} asdas
+Test {{ $selam }} {!! $selam !!}

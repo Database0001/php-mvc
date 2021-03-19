@@ -6,4 +6,6 @@ foreach ($modules as $module) {
     include($module);
 }
 
-include('../route/route.php');
+include(base_path('\route\route.php'));
+
+include(base_path('\general\error_handling.php'));
