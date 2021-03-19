@@ -19,7 +19,7 @@ class Route
                 $class = new $callback();
 
                 foreach ($methods as $method) {
-                    if ($method[0] == $_SERVER['REQUEST_METHOD']) {
+                    if ($method[0] == ($_REQUEST['_method'] ?? $_SERVER['REQUEST_METHOD'])) {
                         $return = eval('return $class->' . $method[1] . '();');
                     }
                 }

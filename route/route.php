@@ -7,3 +7,5 @@ Route::request("/home", HomeController::class, [
     ['GET', 'get'],
     ['POST', 'post']
 ]);
+
+Route::resource('/homev2', HomeController::class);
