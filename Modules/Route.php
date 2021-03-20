@@ -11,8 +11,18 @@ class Route
     {
 
         if ($url == $_SERVER['REQUEST_URI']) {
+
+            $request_method = (request('_method') ?? $_SERVER['REQUEST_METHOD']);
+
+            $params = [];
+
+
             if (gettype($callback) == 'object') {
-                $return = $callback();
+
+                if (in_array($request_method, $methods)) {
+                    $return = call_user_func($callback, $params);
+                }
+                
             } elseif (gettype($callback) == 'string') {
 
                 include("../" . $callback . ".php");
@@ -20,19 +30,17 @@ class Route
                 $class = new $callback();
 
                 foreach ($methods as $method) {
-                    if (in_array((request('_method') ?? $_SERVER['REQUEST_METHOD']), $method[0])) {
-                        $return = call_user_func_array([$class, $method[1]], ['sa']);
+                    if (in_array($request_method, $method[0])) {
+                        $return = call_user_func_array([$class, $method[1]], $params);
                     }
                 }
-
-                if ($return) {
-                    echo $return;
-                } else {
-                    abort(404);
-                }
             }
+
             if (@$return) {
                 self::$called = 1;
+                echo $return;
+            } else {
+                abort(404);
             }
         }
     }

@@ -8,4 +8,8 @@ Route::request("/home", HomeController::class, [
     [['POST'], 'post']
 ]);
 
-Route::resource('/homev2', HomeController::class);
+Route::request("/", function () {
+    return "sa";
+}, ['GET']);
+
+//Route::resource('/homev2', HomeController::class);
