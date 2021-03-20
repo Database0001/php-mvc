@@ -11,6 +11,11 @@ class HomeController
 
     public function post()
     {
+
+        //print_r($_POST);
+        
+        print_r(request());
+
         return "Post page";
     }
 }
