@@ -16,11 +16,12 @@ class Route
             } elseif (gettype($callback) == 'string') {
 
                 include("../" . $callback . ".php");
+
                 $class = new $callback();
 
                 foreach ($methods as $method) {
                     if (in_array((request('_method') ?? $_SERVER['REQUEST_METHOD']), $method[0])) {
-                        $return = eval('return $class->' . $method[1] . '();');
+                        $return = call_user_func_array([$class, $method[1]], ['sa']);
                     }
                 }
 
