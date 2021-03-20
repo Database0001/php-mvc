@@ -14,11 +14,14 @@ class Route
 
         $_uri = array_filter(explode("/", $uri));
         $_url = array_filter(explode("/", $url));
-        
+
+        $args = [];
+
         if (count($_uri) == count($_url)) {
             foreach ($_url as $k => $_) {
                 if (preg_match("/{[a-zA-Z0-9]+}/i", $_)) {
-                    @$_url[$k] = $_uri[$k];
+                    $_url[$k] = $_uri[$k];
+                    $args[$k] = $_uri[$k];
                 }
             }
         }
@@ -27,12 +30,10 @@ class Route
 
             $request_method = (request('_method') ?? $_SERVER['REQUEST_METHOD']);
 
-            $params = [];
-
             if (gettype($callback) == 'object') {
 
                 if (in_array($request_method, $methods)) {
-                    $return = call_user_func($callback, $params);
+                    $return = call_user_func_array($callback, $args);
                 }
             } elseif (gettype($callback) == 'string') {
 
@@ -42,7 +43,7 @@ class Route
 
                 foreach ($methods as $method) {
                     if (in_array($request_method, $method[0])) {
-                        $return = call_user_func_array([$class, $method[1]], $params);
+                        $return = call_user_func_array([$class, $method[1]], $args);
                     }
                 }
             }
@@ -58,9 +59,23 @@ class Route
 
     public static function resource($url, $class)
     {
-        return self::request($url, $class, [
+        self::request($url, $class, [
             [['GET'], 'index'],
             [['POST'], 'store']
+        ]);
+
+        self::request("$url/create", $class, [
+            [['GET'], 'create']
+        ]);
+
+        self::request("$url/{id}", $class, [
+            [['GET'], 'show'],
+            [['PUT', 'PATCH'], 'update'],
+            [['DELETE'], 'delete']
+        ]);
+
+        self::request("$url/{id}/edit", $class, [
+            [['GET'], 'edit']
         ]);
     }
 }

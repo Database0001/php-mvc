@@ -8,8 +8,9 @@ Route::request("/home", HomeController::class, [
     [['POST'], 'post']
 ]);
 
-Route::request("/{id}", function () {
-    return "sa";
+Route::request("/{id}/{name}", function ($id, $name) {
+    echo "$id $name";
+    return " ";
 }, ['GET']);
 
 //Route::resource('/homev2', HomeController::class);
