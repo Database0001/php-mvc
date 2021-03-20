@@ -8,7 +8,7 @@ Route::request("/home", HomeController::class, [
     [['POST'], 'post']
 ]);
 
-Route::request("/", function () {
+Route::request("/{id}", function () {
     return "sa";
 }, ['GET']);
 

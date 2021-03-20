@@ -10,19 +10,30 @@ class Route
     public static function request($url, $callback, $methods = [])
     {
 
-        if ($url == $_SERVER['REQUEST_URI']) {
+        $uri = url();
+
+        $_uri = array_filter(explode("/", $uri));
+        $_url = array_filter(explode("/", $url));
+        
+        if (count($_uri) == count($_url)) {
+            foreach ($_url as $k => $_) {
+                if (preg_match("/{[a-zA-Z0-9]+}/i", $_)) {
+                    @$_url[$k] = $_uri[$k];
+                }
+            }
+        }
+
+        if ($_url == $_uri) { // $url == url()
 
             $request_method = (request('_method') ?? $_SERVER['REQUEST_METHOD']);
 
             $params = [];
-
 
             if (gettype($callback) == 'object') {
 
                 if (in_array($request_method, $methods)) {
                     $return = call_user_func($callback, $params);
                 }
-                
             } elseif (gettype($callback) == 'string') {
 
                 include("../" . $callback . ".php");

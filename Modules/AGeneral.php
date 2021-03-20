@@ -50,3 +50,8 @@ function request($key = null)
 
     return $requests;
 }
+
+function url()
+{
+    return $_SERVER['REQUEST_URI'];
+}
