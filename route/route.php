@@ -3,7 +3,7 @@
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Resource\ResourceController;
 
-use Modules\Route\Route;
+use Modules\Route;
 
 Route::request("/", HomeController::class, [
     [['GET'], 'index'],

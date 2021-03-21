@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Blade;
+
 function view($view, $data = [])
 {
     $view = explode('.', $view);
@@ -11,8 +13,7 @@ function view($view, $data = [])
 
     $file = $path . ".blade.php";
     if (file_exists($file)) {
-        return blade(file_get_contents($file), $data);
+        return Blade::build(file_get_contents($file), $data);
     } else {
-        
     }
 }

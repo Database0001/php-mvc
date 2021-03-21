@@ -1,6 +1,6 @@
 <?php
 
-use Modules\Route\Route;
+use Modules\Route;
 
 $called = Route::$called;
 

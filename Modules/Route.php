@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Route;
+namespace Modules;
 
 class Route
 {
@@ -13,7 +13,7 @@ class Route
         if (self::$called != 0)
             return;
 
-        $uri = url();
+        $uri = strtok(strtok(url(), "?"), '#');
 
         $_uri = array_filter(explode("/", $uri));
         $_url = array_filter(explode("/", $url));

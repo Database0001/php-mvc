@@ -73,5 +73,25 @@ function ip()
 
 function session()
 {
-    
+
+    $args = func_get_args();
+
+    if (!isset($args[0]))
+        return $_SESSION;
+
+    $type = gettype($args[0]);
+
+    if ($type == "string") {
+        if (isset($args[0]))
+            return $_SESSION[$args[0]] ?? ($_SESSION[@$args[1]] ?? null);
+    } elseif ($type == "array") {
+        if (isset($args[0]))
+            foreach ($args[0] as $key => $val) {
+                $_SESSION[$key] = $val;
+            }
+
+        return true;
+    }
+
+    return false;
 }
