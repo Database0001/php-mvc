@@ -5,14 +5,13 @@ use App\Http\Controllers\Resource\ResourceController;
 
 use Modules\Route\Route;
 
-Route::request("/home", HomeController::class, [
+Route::request("/", HomeController::class, [
     [['GET'], 'get'],
     [['POST'], 'post']
 ]);
 
-Route::request("/", function ($id = 0, $name = 1) {
-    echo "$id $name";
-    return " ";
-}, ['GET']);
+Route::resource('/home', ResourceController::class);
 
-Route::resource('/homev2', ResourceController::class);
+Route::request("/test-static", function () {
+    return "Anasayfa";
+}, ['GET']);

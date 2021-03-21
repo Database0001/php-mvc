@@ -11,7 +11,7 @@ class ResourceController
 
     public function create()
     {
-        return "s2ş";
+        return "create";
     }
 
     public function store()
@@ -21,7 +21,7 @@ class ResourceController
 
     public function show($id)
     {
-        return "show $id";
+        return view('modules.test.index', compact('id'));
     }
 
     public function edit($id)

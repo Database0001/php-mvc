@@ -6,7 +6,7 @@ class HomeController
 {
     public function get()
     {
-        return view('modules.test.index', ['selam' => "<button>button</button>"]);
+        return view('modules.home.index');
     }
 
     public function post()

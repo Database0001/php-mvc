@@ -10,6 +10,9 @@ class Route
     public static function request($url, $callback, $methods = [])
     {
 
+        if (self::$called != 0)
+            return null;
+
         $uri = url();
 
         $_uri = array_filter(explode("/", $uri));
