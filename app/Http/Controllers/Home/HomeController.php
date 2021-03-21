@@ -9,7 +9,9 @@ class HomeController
     public function index()
     {
         $model = new Users();
-        return view('modules.home.index', ['users' => $model->getAll()]);
+        $users = $model->getAll();
+        $selam = null;
+        return view('modules.home.index', ['users' => $users]);
     }
 
     public function test()

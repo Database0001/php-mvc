@@ -1,12 +1,11 @@
 <?php
 
-use Modules\Template;
 
-function view($view, $args = [])
+function view()
 {
-    global $db;
+    $args = func_get_args();
 
-    $view = explode('.', $view);
+    $view = explode('.', $args[0]);
     $path = base_path('\resources\views');
 
     foreach ($view as $v) {
@@ -15,14 +14,10 @@ function view($view, $args = [])
 
     $file = $path . ".php";
     if (file_exists($file)) {
-        //return Template::build(file_get_contents($file), $data);
-
-        ob_start();
-        include($file);
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        return Template::build($output, $args);
+        $args[0] = $file;
+        
+        //return template_build(file_get_contents($file), $data);
+        return call_user_func_array('template_build', $args);
     } else {
     }
 }

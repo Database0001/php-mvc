@@ -1,37 +1,40 @@
 <?php
 
-namespace Modules;
-
-class Template
+function template_build($file = null, $args = [])
 {
-    public static function build($fileContent = null, $data = [])
-    {
+    global $db;
 
-        foreach ($data as $data_key => $data_val) {
+    extract($args);
 
-            if (gettype($data_val) === "object" || gettype($data_val) === "array") {
-                $data_val = json_encode($data_val, JSON_UNESCAPED_UNICODE);
-            }
+    ob_start();
+    include($file);
+    $fileContent = ob_get_contents();
+    ob_end_clean();
 
-            $fileContent = str_replace(["{{ $$data_key }}", "{!! $$data_key !!}"], [htmlspecialchars($data_val), $data_val], $fileContent);
+    foreach ($args as $data_key => $data_val) {
+
+        if (gettype($data_val) === "object" || gettype($data_val) === "array") {
+            $data_val = json_encode($data_val, JSON_UNESCAPED_UNICODE);
         }
 
-        // $patterns = [
-        //     "/{{ \$[a-zA-Z0-9]+ }}/i",
-        //     "/{!! \$[a-zA-Z0-9]+ !!}/i",
-        // ];
-
-        // foreach ($patterns as $pattern) {
-        //     if (preg_match_all($pattern, $fileContent, $arr)) {
-        //         print_r($arr);
-        //     }
-        // }
-
-        return $fileContent;
+        $fileContent = str_replace(["{{ $$data_key }}", "{!! $$data_key !!}"], [htmlspecialchars($data_val), $data_val], $fileContent);
     }
 
-    public static function include($view, $data = [])
-    {
-        echo view($view, $data);
-    }
+    // $patterns = [
+    //     "/{{ \$[a-zA-Z0-9]+ }}/i",
+    //     "/{!! \$[a-zA-Z0-9]+ !!}/i",
+    // ];
+
+    // foreach ($patterns as $pattern) {
+    //     if (preg_match_all($pattern, $fileContent, $arr)) {
+    //         print_r($arr);
+    //     }
+    // }
+
+    return $fileContent;
+}
+
+function template_include($view, $args = [])
+{
+    echo view($view, $args);
 }

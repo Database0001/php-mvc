@@ -52,7 +52,7 @@ class Route
             }
 
             self::$called = 1;
-            echo $return;
+            print_r($return);
 
             // if (isset($return)) {
             //     self::$called = 1;
