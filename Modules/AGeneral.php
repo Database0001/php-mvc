@@ -5,9 +5,15 @@ function base_path($url = null)
     return dirname(__DIR__) . $url;
 }
 
+function public_path($url = null)
+{
+    return base_path(env('public_path')) . $url;
+}
+
 function abort($code = null)
 {
     $response = http_response_code($code);
+
     if ($code) {
         echo view('errors.' . $code);
         exit;
@@ -96,8 +102,31 @@ function session()
     return false;
 }
 
-function env($name)
+function env($name = null)
 {
-    $file = fopen(base_path('.env'), 'r');
-    
+
+    $file = fopen(base_path('/.env'), 'r');
+
+    $env = [];
+
+    while (($line = fgets($file)) !== false) {
+        $line = explode('=', $line);
+
+        $env[$line[0]] = "";
+
+        foreach ($line as $key => $val) {
+            if ($key == 0)
+                continue;
+
+            $env[$line[0]] .= ($key > 1 ? "=" : null) . $val;
+        }
+
+        if ($name == $line[0]) {
+            return $env[$line[0]];
+        }
+    }
+
+    fclose($file);
+
+    return $env;
 }
