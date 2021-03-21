@@ -18,12 +18,10 @@ class Users extends Model
     }
 
 
-
     public function getAll()
     {
         return $this->get();
     }
-
 
 
 }

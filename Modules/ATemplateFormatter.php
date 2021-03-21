@@ -34,7 +34,7 @@ function template_build($file = null, $args = [])
     return $fileContent;
 }
 
-function template_include($view, $args = [])
+function template_include()
 {
-    echo view($view, $args);
+    echo call_user_func_array('view', func_get_args());
 }

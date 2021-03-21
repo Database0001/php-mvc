@@ -22,7 +22,7 @@ $db[] = new DB('test-mvc');
 
 include(base_path('\route\route.php'));
 
-include(base_path('\general\http\error_handling.php'));
+include(base_path('\core\http\error_handling.php'));
 
 define('END', microtime(true));
 
