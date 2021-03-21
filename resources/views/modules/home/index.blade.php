@@ -1,1 +1,1 @@
-Hoşgeldin
+Anasayfaya hoşgeldin!

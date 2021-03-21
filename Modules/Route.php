@@ -11,7 +11,7 @@ class Route
     {
 
         if (self::$called != 0)
-            return null;
+            return;
 
         $uri = url();
 

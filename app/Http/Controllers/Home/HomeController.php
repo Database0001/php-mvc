@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Home;
 
 class HomeController
 {
-    public function get()
+    public function index()
     {
         return view('modules.home.index');
     }
 
-    public function post()
+    public function test()
     {
 
         //print_r($_POST);
