@@ -1,6 +1,6 @@
 <?php
 
-use Modules\Blade;
+use Modules\Template;
 
 function view($view, $data = [])
 {
@@ -11,9 +11,16 @@ function view($view, $data = [])
         $path .= "\\" . $v;
     }
 
-    $file = $path . ".blade.php";
+    $file = $path . ".php";
     if (file_exists($file)) {
-        return Blade::build(file_get_contents($file), $data);
+        //return Template::build(file_get_contents($file), $data);
+
+        ob_start();
+        include($file);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        return Template::build($output, $data);
     } else {
     }
 }
