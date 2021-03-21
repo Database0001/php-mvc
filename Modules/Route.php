@@ -37,7 +37,7 @@ class Route
                 }
             } elseif (gettype($callback) == 'string') {
 
-                include("../" . $callback . ".php");
+                include(base_path("/$callback.php"));
 
                 $class = new $callback();
 
@@ -71,7 +71,7 @@ class Route
         self::request("$url/{id}", $class, [
             [['GET'], 'show'],
             [['PUT', 'PATCH'], 'update'],
-            [['DELETE'], 'delete']
+            [['DELETE'], 'destroy']
         ]);
 
         self::request("$url/{id}/edit", $class, [

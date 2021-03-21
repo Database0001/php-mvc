@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Resource\ResourceController;
+
 use Modules\Route\Route;
 
 Route::request("/home", HomeController::class, [
@@ -8,9 +10,9 @@ Route::request("/home", HomeController::class, [
     [['POST'], 'post']
 ]);
 
-Route::request("/{id}/{name}", function ($id, $name) {
+Route::request("/", function ($id = 0, $name = 1) {
     echo "$id $name";
     return " ";
 }, ['GET']);
 
-//Route::resource('/homev2', HomeController::class);
+Route::resource('/homev2', ResourceController::class);
