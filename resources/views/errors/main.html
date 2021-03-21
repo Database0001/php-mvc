@@ -13,16 +13,29 @@
         }
 
         body {
-            height: 100%;
-            width: 100%;
+            font-size: 3vh;
             background-color: rgb(33, 33, 33);
             color: #ddd;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100%;
+            width: 100%;
+            user-select: none;
+            -moz-user-select: none;
+        }
+
+        div {
+            margin-top: 41vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
-    {{ $content }}
+    <div>
+        {{ $content }}
+    </div>
 </body>
 
 </html>
