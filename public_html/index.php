@@ -7,10 +7,13 @@ session_start();
 
 define('START', microtime(true));
 
-$modules = glob('../modules/*.php');
+$includes = ['../modules/*.php', '../abstracts/*.php', '../app/Models/*.php'];
 
-foreach ($modules as $module) {
-    include($module);
+foreach ($includes as $path) {
+    $files = glob($path);
+    foreach ($files as $file) {
+        include($file);
+    }
 }
 
 $db = [];

@@ -2,10 +2,10 @@
 
 use Modules\Template;
 
-function view($view, $data = [])
+function view($view, $args = [])
 {
     global $db;
-    
+
     $view = explode('.', $view);
     $path = base_path('\resources\views');
 
@@ -22,7 +22,7 @@ function view($view, $data = [])
         $output = ob_get_contents();
         ob_end_clean();
 
-        return Template::build($output, $data);
+        return Template::build($output, $args);
     } else {
     }
 }

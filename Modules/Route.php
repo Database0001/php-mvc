@@ -51,12 +51,15 @@ class Route
                 }
             }
 
-            if (@$return) {
-                self::$called = 1;
-                echo $return;
-            } else {
-                abort(404);
-            }
+            self::$called = 1;
+            echo $return;
+
+            // if (isset($return)) {
+            //     self::$called = 1;
+            //     echo $return;
+            // } else {
+            //     abort(404);
+            // }
         }
     }
 

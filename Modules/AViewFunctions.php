@@ -1,6 +1,7 @@
 <?php
 
-function include_part($view, $data = null)
+function include_part()
 {
-    Modules\Template::include($view, $data);
+    $args = func_get_args();
+    Modules\Template::include($args[0], $args[1]);
 }

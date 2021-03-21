@@ -6,10 +6,7 @@ class ResourceController
 {
     public function index()
     {
-
-        print_r(request());
-
-        return " ";
+        return "resource home";
     }
 
     public function create()

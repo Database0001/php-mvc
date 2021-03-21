@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Resource\ResourceController;
-
 use Modules\Route;
 
 Route::request("/", HomeController::class, [
@@ -11,7 +10,3 @@ Route::request("/", HomeController::class, [
 ]);
 
 Route::resource('/home', ResourceController::class);
-
-Route::request("/test-template", function () {
-    return view('modules.test.index', ['selam' => "<button>sa</button>"]);
-}, ['GET']);
