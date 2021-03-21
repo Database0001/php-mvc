@@ -95,3 +95,9 @@ function session()
 
     return false;
 }
+
+function env($name)
+{
+    $file = fopen(base_path('.env'), 'r');
+    
+}

@@ -1,4 +1,7 @@
 <?php
+
+use Modules\DB;
+
 set_time_limit(0);
 session_start();
 
@@ -9,6 +12,10 @@ $modules = glob('../modules/*.php');
 foreach ($modules as $module) {
     include($module);
 }
+
+$db = [];
+
+$db[] = new DB('test-mvc');
 
 include(base_path('\route\route.php'));
 

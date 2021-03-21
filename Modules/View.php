@@ -4,6 +4,8 @@ use Modules\Template;
 
 function view($view, $data = [])
 {
+    global $db;
+    
     $view = explode('.', $view);
     $path = base_path('\resources\views');
 

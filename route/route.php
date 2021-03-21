@@ -12,6 +12,6 @@ Route::request("/", HomeController::class, [
 
 Route::resource('/home', ResourceController::class);
 
-Route::request("/test-blade", function () {
+Route::request("/test-template", function () {
     return view('modules.test.index', ['selam' => "<button>sa</button>"]);
 }, ['GET']);
