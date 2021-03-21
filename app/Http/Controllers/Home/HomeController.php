@@ -16,9 +16,6 @@ class HomeController
 
     public function test()
     {
-
-        //print_r($_POST);
-
         print_r(request());
 
         return "Post page";

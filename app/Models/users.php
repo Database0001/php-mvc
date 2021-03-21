@@ -17,8 +17,13 @@ class Users extends Model
         parent::__construct($this->db, $this->table);
     }
 
+
+
     public function getAll()
     {
         return $this->get();
     }
+
+
+
 }

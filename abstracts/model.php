@@ -8,7 +8,6 @@ abstract class Model
 {
     public $table;
     public $db;
-    public $sql;
 
     public function __construct($db, $table)
     {
@@ -16,8 +15,9 @@ abstract class Model
         $this->db = $db->db;
     }
 
-    public function get()
+    public function get($fileds = "*")
     {
-        return $this->db->query("SELECT * FROM " . $this->table)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT $fileds FROM $this->table")->fetchAll(PDO::FETCH_ASSOC);
     }
+
 }
