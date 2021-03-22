@@ -1,0 +1,89 @@
+<?php
+
+class FileManagement
+{
+    public static function save($path, $content)
+    {
+        $file = fopen($path, 'w+');
+        if ($file) {
+            fwrite($file, $content);
+            fclose($file);
+            return true;
+        }
+        return false;
+    }
+
+    public static function read($path)
+    {
+        return file_get_contents($path);
+    }
+}
+
+
+unset($argv[0]);
+$argv = array_values(array_filter($argv));
+
+$external = "external_files";
+
+$commands = [
+    'make' => [
+        'controller' => function () {
+            global $external;
+
+            $args = func_get_args();
+
+            $main_path = "App/Http/Controllers";
+
+            $file = "$main_path/" . str_replace("\\", '/', $args[0]) . ".php";
+
+            if (!file_exists($file)) {
+
+                $exp = explode('/', $file);
+
+                $class_name = strtok($exp[count($exp) - 1], '.');
+
+                unset($exp[count($exp) - 1]);
+
+                $dir = implode('/', $exp);
+
+                if (mkdir($dir, 0777, true)) {
+
+                    $type = "flat";
+                    if (@$args[1] == "resource") {
+                        $type = "resource";
+                    }
+                    $content = str_replace(
+                        ["{namespace}", "{class_name}"],
+                        [str_replace("/", "\\", $dir), $class_name],
+                        FileManagement::read("$external/controllers/$type")
+                    );
+
+                    if (FileManagement::save($file, $content)) {
+                        echo "Controller Oluşturuldu!";
+                    } else {
+                        return "Controller oluşturulamadı.";
+                    }
+                } else {
+                    return "Bir hata oluştu lütfen tekrar deneyiniz.";
+                }
+            } else {
+                return "Böyle bir Controller zaten var.";
+            }
+        }
+    ]
+];
+
+
+$command = explode(':', $argv[0]);
+
+$com = $commands[$command[0]];
+
+if ($com) {
+
+    $args = $argv;
+    unset($args[0]);
+    print_r(call_user_func_array($com[$command[1]], $args));
+    echo "\n";
+} else {
+    echo "Böyle bir komut yok.";
+}
