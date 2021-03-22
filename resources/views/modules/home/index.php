@@ -2,4 +2,6 @@
 <pre>
 <?php print_r($db[0]->db->query("SHOW TABLES")->fetchAll(PDO::FETCH_ASSOC)); ?>
 
+{{ $users }}
+
 <?= include_part('layouts.footer', ['title' => 'Anasayfa']) ?>
