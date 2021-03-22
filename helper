@@ -59,15 +59,15 @@ $commands = [
                     );
 
                     if (FileManagement::save($file, $content)) {
-                        echo "Controller Oluşturuldu!";
+                        return "\e[32mController Oluşturuldu!";
                     } else {
-                        return "Controller oluşturulamadı.";
+                        return "\e[33mController oluşturulamadı.";
                     }
                 } else {
-                    return "Bir hata oluştu lütfen tekrar deneyiniz.";
+                    return "\e[31mBir hata oluştu lütfen tekrar deneyiniz.";
                 }
             } else {
-                return "Böyle bir Controller zaten var.";
+                return "\e[93mBöyle bir Controller zaten var.";
             }
         }
     ]
@@ -83,7 +83,7 @@ if ($com) {
     $args = $argv;
     unset($args[0]);
     print_r(call_user_func_array($com[$command[1]], $args));
-    echo "\n";
+    echo "\n\e[39m";
 } else {
     echo "Böyle bir komut yok.";
 }
