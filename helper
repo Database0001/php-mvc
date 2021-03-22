@@ -46,7 +46,7 @@ $commands = [
 
                 $dir = implode('/', $exp);
 
-                if (mkdir($dir, 0777, true)) {
+                if (@mkdir($dir, 0777, true) || count($exp) == 2) {
 
                     $type = "flat";
                     if (@$args[1] == "resource") {
@@ -59,7 +59,7 @@ $commands = [
                     );
 
                     if (FileManagement::save($file, $content)) {
-                        return "\e[32mController Oluşturuldu!";
+                        return "\e[32mController oluşturuldu!";
                     } else {
                         return "\e[33mController oluşturulamadı.";
                     }
@@ -68,6 +68,44 @@ $commands = [
                 }
             } else {
                 return "\e[93mBöyle bir Controller zaten var.";
+            }
+        },
+
+        'model' => function () {
+            global $external;
+            $args = func_get_args();
+            $main_path = "App/Models";
+
+            $file = "$main_path/" . str_replace("\\", '/', $args[0]) . ".php";
+
+            if (!file_exists($file)) {
+
+                $exp = explode('/', $file);
+
+                $class_name = strtok($exp[count($exp) - 1], '.');
+
+                unset($exp[count($exp) - 1]);
+
+                $dir = implode('/', $exp);
+                
+                if (@mkdir($dir, 0777, true) || count($exp) == 2) {
+
+                    $content = str_replace(
+                        ["{namespace}", "{class_name}"],
+                        [str_replace("/", "\\", $dir), $class_name],
+                        FileManagement::read("$external/models/flat")
+                    );
+
+                    if (FileManagement::save($file, $content)) {
+                        return "\e[32mModel oluşturuldu!";
+                    } else {
+                        return "\e[33mModel oluşturulamadı.";
+                    }
+                } else {
+                    return "\e[31mBir hata oluştu lütfen tekrar deneyiniz.";
+                }
+            } else {
+                return "\e[93mBöyle bir Model zaten var.";
             }
         }
     ]
