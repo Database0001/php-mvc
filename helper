@@ -87,7 +87,7 @@ $commands = [
                 unset($exp[count($exp) - 1]);
 
                 $dir = implode('/', $exp);
-                
+
                 if (@mkdir($dir, 0777, true) || count($exp) == 2) {
 
                     $content = str_replace(
@@ -111,17 +111,36 @@ $commands = [
     ]
 ];
 
+function get_array($arr, $count = 0)
+{
+    foreach ($arr as $key => $val) {
+        echo str_repeat('    ', $count) . "$key";
 
-$command = explode(':', $argv[0]);
+        if (gettype($val) == 'array') {
+            echo " => ";
+            echo "\n" . str_repeat(' ', $count);
+            $count++;
+            get_array($val, $count);
+        }
 
-$com = $commands[$command[0]];
+        echo "\n" . str_repeat(' ', $count - 1);
+    }
+}
 
-if ($com) {
-
-    $args = $argv;
-    unset($args[0]);
-    print_r(call_user_func_array($com[$command[1]], $args));
-    echo "\n\e[39m";
+if (!count($argv)) {
+    get_array($commands);
 } else {
-    echo "Böyle bir komut yok.";
+    $command = explode(':', $argv[0]);
+
+    $com = $commands[$command[0]];
+
+    if ($com) {
+        $args = $argv;
+        unset($args[0]);
+        print_r(call_user_func_array($com[$command[1]], $args));
+    } else {
+        echo "\e[31mBöyle bir komut yok.";
+    }
+
+    echo "\n\e[39m";
 }
